@@ -1,0 +1,3 @@
+# @package _group_
+name: 'cnn-split'  # this is a general name for different datasets. The class name may differ according to `get_model`.
+mid_dim: 50  # dimension of hidden representation

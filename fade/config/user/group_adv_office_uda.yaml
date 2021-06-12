@@ -1,0 +1,20 @@
+# @package _group_
+name: group_adv
+loss: sxent
+group_loss: bce  # bce | sq_bce | xent | wd (Wasserstein distance) | dib | cdan
+adv_lambda: 1.  # coef for adv loss.
+optimizer:
+  name: sgd_sch
+  learning_rate: 0.01  # Local learning rate
+  personal_learning_rate: 0.09  # Persionalized learning rate to caculate theta aproximately using K steps
+privacy:
+  enable: false
+#    user_clip_norm: -1  # User-DP clip norm (layer wise)
+#    user_dp_sigma: -1  # User-DP noise sigma
+batch_size: 32
+local_epochs: -1
+total_local_epochs: 10
+relabel_coef: 0.
+# useless
+lamda: 0  # Regularization term
+K: 5  # Computation steps on local fine-tune

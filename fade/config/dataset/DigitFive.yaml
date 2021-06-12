@@ -1,0 +1,14 @@
+# @package _group_
+name: Mnist  # Mnist | MnistM | SVHN | USPS | SynDigit
+seed: 42
+n_user: 1
+n_class: 10
+class_stride: 2
+partition_mode: uni
+min_n_sample_per_share: 2 # num sample per class
+max_n_sample_per_share: -1
+max_n_sample_per_class: -1 # 1000
+n_channel: 3  # 1 or 3
+user_data_format: tensor
+random_crop_rot: True # only used by USPS TODO do we need to set false?
+resize: 28

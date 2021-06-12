@@ -1,0 +1,55 @@
+# This is the default experiment config.
+defaults:
+  - model: cnn-split
+  - server: FedAvg
+  - user: generic
+  - dataset: Mnist  # Note the runtime entry name is 'dataset' instead of 'data'.
+  - hydra/job_logging: colorlog
+  - hydra/hydra_logging: colorlog
+  - hydra/launcher: joblib
+
+# Example: dataset=comb/MnistM_c5u40 server.num_users=1 times=3 user.batch_size=5 num_glob_iters=400 user.local_epochs=50 user.optimizer.learning_rate=0.005 server.beta=1.0 n_jobs=3 server.name=pFedSplit model=cnn-split user.optimizer.name=sgd model.mid_dim=20
+
+# not hashed config
+num_glob_iters: 800
+partial_eval: false  # Do partial evaluation instead of all-user evaluation at each  global round
+n_rep: 5  # Number of repetition times
+i_rep: -1  # should be smaller than n_rep or negative (ignored)
+n_jobs: 1  # num of parallel jobs
+device: 'cuda'   # run device (cpu | cuda)
+action: 'train'  # 'train' | 'eval' | 'avg' | 'check_files'
+logging: 'WARN'
+
+# only keys listed below will be hashed as server unique name.
+hash_keys: ["model", "server", "user", "dataset", "seed", "name"]
+
+load_model:  # NOTE: for action=eval, even if load_modle.do=false, the saved default models will still be loaded.
+  do: false
+  load: [server, user] # Example: [server, user], [server], []
+  # TODO this has to be moved to model dict. such that pretrained and train-from-scratch can be distinguished.
+  hash_name: null  # could be hash name of a server or null to load from default path. Could be absolute path to super-dir of `server.pt`.
+disable_save_user_model: True
+
+# will be hashed
+name: "dmtl"  # experiment name
+seed: 42  # for repetitions, use different seed
+
+logger:
+  loggers: ["wandb"]
+  log_user: true  # log for each user.
+  wandb:
+    name: rep_${i_rep}_${user.optimizer.learning_rate}
+    project: ${name}-${dataset.name}
+    group: ${server.name}-${user.name}-${model.name}
+#    offline: false # Run offline (data can be streamed later to wandb servers).
+
+# Set config only for evaluation (which will not change the hash of the experiment).
+# The nested config will replace the original setting during aciton=eval.
+#eval_config:
+#  dataset:
+
+plot:
+  func: plot_hidden_states
+  kwargs:
+    color_by: class
+    info_group: test

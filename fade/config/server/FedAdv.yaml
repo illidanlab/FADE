@@ -1,0 +1,24 @@
+# @package _group_
+# Unsupervised Domain Adaptation by Adv Training.
+# Assumptions:
+#   All users are processing same task, i.e., p(y|x) are the same. Thus, we share all params like FedAvg.
+#   Domain differs by p(x)
+#   One group of users are unsupervised.
+server:
+name: FedAdv
+alg: FedAdv  # server alg
+num_users: 1  # Number of Users per global round
+beta: 1. # Average moving parameter for pFedMe, or Second learning rate of Per-FedAvg
+share_mode: all  # share all because MnistM does not use labels to train.
+sync_optimizer: false  # true to sync optimizers between users after each global run. NOTE: sync only support num_users==1.
+user_selection: "sequential"
+fair_update: False
+#  group_label_mode: ??? # {Mnist:supervised,MnistM:unsupervised}
+# Example for setting 'group_label_mode':
+# +server.group_label_mode.Mnist=supervised
+# +server.group_label_mode.MnistM=unsupervised
+privacy:
+  enable: false
+  # Add only on use
+#    user_clip_norm: -1  # User-DP clip norm (layer wise)
+#    user_dp_sigma: -1  # User-DP noise sigma

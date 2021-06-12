@@ -1,0 +1,72 @@
+# Sweep file for wandb tuning.  M2U: Mnist -> USPS
+# Goal: Source domain include 5 non-iid users.
+#   point).
+#   Variable: prob of source-domain user in each global epoch
+#   Metric: Train acc on the target domain.
+#
+# Preparation:
+#   1. Run `bash dmtl/experiments/OfficeHome65a_fedavg_5user_niid.sh` to pretrain the source domain model s.t. the varying p_src will
+#     not affect the quality of source domain.
+#   2. Run `m2u_fuda_puser.sh to create the project.
+#
+# Runs:
+#   - [1/28] https://wandb.ai/jyhong/dmtl-Office31_A2W_FUDA_fuda_vs_shot/sweeps/soz1s67k/overview
+#   - https://wandb.ai/jyhong/dmtl-Office31_A2W_FUDA_fuda_vs_shot/sweeps/wd9mp9ap?workspace=user-jyhong
+name: W2X_shot_nuser
+project: fade-demo-Office31_X2X_UDA
+command:
+- ${interpreter}
+- -m
+- ${program}
+- logger.wandb.project=dmtl-Office31_X2X_UDA
+- dataset=comb/Office31_X2X_1s_3t
+- server=FedAdv
+- model=Office31_CnnSplitAdv
+- user=group_adv_office_uda
+- num_glob_iters=300
+# task
+- +eval_freq=30
+- logger.wandb.group='adv-shot-nuser-${dataset.meta_datasets.0.name}'
+- logger.wandb.name='r${i_rep}-shot-nuser-${dataset.meta_datasets.0.name}'
+- server.beta=.5
+- load_model.do=true
+- load_model.load=[server]
+- server.user_selection=random_uniform
+# data
+- dataset.meta_datasets.1.name=Office31W
+- +server.group_label_mode.Office31W=supervised
+- +server.group_label_mode.Office31A=self_supervised
+- +server.group_label_mode.Office31D=self_supervised
+- load_model.hash_name=Office31W/FedAvg/OfficeCnnSplit/1e6351a86a07eafba767541fb79aab07bb6eb01f/g_0
+# method
+- user.adv_lambda=0.
+- user.group_loss=none
+- model.freeze_backbone=False
+- model.freeze_decoder=True
+- model.rev_lambda_scale=0.
+- model.disable_bn_stat=True
+- model.bottleneck_type=bn
+- user.relabel_coef=0.1
+#
+- ${args_no_hyphens}
+method: grid
+metric:
+  goal: maximize
+  name: g_test_acc  # need to change at GUI according to dataset.meta_datasets.0.name
+parameters:
+  i_rep:
+    values:
+    - 0
+    - 1
+    - 2
+  dataset.meta_datasets.0.name:
+    values:
+    - Office31A
+    - Office31D
+  server.num_users:
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+program: dmtl.mainx

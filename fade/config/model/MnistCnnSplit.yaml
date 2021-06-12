@@ -1,0 +1,4 @@
+# @package _group_
+name: 'MnistCnnSplit'
+in_channel: 3
+n_task: 0

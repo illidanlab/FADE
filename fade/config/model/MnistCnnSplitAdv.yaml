@@ -1,0 +1,7 @@
+# @package _group_
+name: 'MnistCnnSplit'
+backbone: LeNet5a
+mid_dim: 256
+n_task: 1  # > 0 for task/group adv training. <=0 otherwise
+rev_lambda_scale: 1.  # 0 to disable backward from task discriminator. >0 to reverse grad. <0 to normal grad. NOTE this is just a constant scale to the lambda. The real lambda will be further scheduled on run.
+in_channel: 3

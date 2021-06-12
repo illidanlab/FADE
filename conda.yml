@@ -1,0 +1,29 @@
+name: fade
+channels:
+  - pytorch
+  - hcc
+  - cvxgrp
+  - anaconda
+  - conda-forge
+  - oxfordcontrol
+  - defaults
+dependencies:
+  - pytorch>=1.3
+  # - cudatoolkit=10.1
+  - numpy>=1.15
+  - torchvision>=0.4
+  - scipy>=1.2
+  - python==3.7.5
+  - seaborn
+  - matplotlib
+  - click
+  - coloredlogs
+  - scikit-learn
+  - tqdm
+  - requests
+  - tensorboard
+  - hydra-core==1.0.4
+  - pip:
+    - wandb # ==0.9.7  # 0.10 has known issue with joblib. See https://github.com/wandb/client/issues/1525
+    - hydra_colorlog
+    - hydra-joblib-launcher

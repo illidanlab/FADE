@@ -1,0 +1,31 @@
+# @package _global_
+
+# 1to1 Domain adaptation on Office31 dataset
+# 1 source user vs 3 target user
+# Do not change the order.
+dataset:
+  name: "comb/OfficeHome65_X2X_1s_3t"
+  meta_fed_ds: federalize  # federalize | extend (default)
+  meta_datasets:
+    - name: OfficeHome65C  # target domain: Clipart
+      seed: 42
+      n_user: 3
+      n_class: 25
+      class_stride: 20
+      min_n_sample_per_share: 2 # num sample per class
+      max_n_sample_per_share: -1
+      max_n_sample_per_class: -1
+      user_data_format: dataset
+      feature_type: images
+      partition_mode: uni
+    - name: OfficeHome65A  # source domain: Arts
+      seed: 42
+      n_user: 1
+      n_class: 65
+      class_stride: 1
+      min_n_sample_per_share: 2 # num sample per class
+      max_n_sample_per_share: -1
+      max_n_sample_per_class: -1
+      user_data_format: dataset
+      feature_type: images
+      partition_mode: uni

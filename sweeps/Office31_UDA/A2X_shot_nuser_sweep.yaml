@@ -1,0 +1,64 @@
+# Sweep file for wandb tuning.  M2U: Mnist -> USPS
+# Goal: Source domain include 5 non-iid users.
+#   point).
+#   Variable: prob of source-domain user in each global epoch
+#   Metric: Train acc on the target domain.
+name: A2X_shot_nuser
+project: fade-demo-Office31_X2X_UDA
+command:
+- ${interpreter}
+- -m
+- ${program}
+- logger.wandb.project=fade-demo-Office31_X2X_UDA
+- dataset=comb/Office31_X2X_1s_3t
+- server=FedAdv
+- model=Office31_CnnSplitAdv
+- user=group_adv_office_uda
+- num_glob_iters=300
+#
+- +eval_freq=30
+- logger.wandb.group='shot-${dataset.meta_datasets.0.name}-c${dataset.meta_datasets.0.n_class}'
+- logger.wandb.name='r${i_rep}'
+- server.beta=.5
+- load_model.do=true
+- load_model.load=[server]
+- server.user_selection=random_uniform
+#
+- dataset.meta_datasets.1.name=Office31A
+- +server.group_label_mode.Office31A=supervised
+- +server.group_label_mode.Office31W=self_supervised
+- +server.group_label_mode.Office31D=self_supervised
+- load_model.hash_name=Office31A/FedAvg/OfficeCnnSplit/4bae7dd1a1c5bf247a4ca4ce1bf1f2394eb1f34b/g_0
+#
+- user.adv_lambda=0.
+- user.group_loss=none
+- model.freeze_backbone=False
+- model.freeze_decoder=True
+- model.rev_lambda_scale=0.
+- model.disable_bn_stat=True
+- model.bottleneck_type=bn
+- user.relabel_coef=0.1
+#
+- ${args_no_hyphens}
+method: grid
+metric:
+  goal: maximize
+  name: g_test_acc  # need to change at GUI according to dataset.meta_datasets.0.name
+parameters:
+  i_rep:
+    values:
+    - 0
+    - 1
+    - 2
+  dataset.meta_datasets.0.name:
+    values:
+    - Office31W
+    - Office31D
+  server.num_users:
+    values:
+    - 2
+  dataset.meta_datasets.0.n_class:
+    values:
+      - 15
+      - 31
+program: fade.mainx

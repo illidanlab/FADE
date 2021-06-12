@@ -1,0 +1,82 @@
+# Sweep file for wandb tuning.  M2U: Mnist -> USPS
+# Goal: Source domain include 5 non-iid users.
+#   point).
+#   Variable: prob of source-domain user in each global epoch
+#   Metric: Train acc on the target domain.
+name: A2X_dann_nuser
+project: fade-demo-Office31_X2X_UDA
+command:
+- ${interpreter}
+- -m
+- ${program}
+- logger.wandb.project=fade-demo-Office31_X2X_UDA
+- dataset=comb/Office31_X2X_1s_3t
+- server=FedAdv
+- model=Office31_CnnSplitAdv
+- user=group_adv_office_uda
+- num_glob_iters=300
+#
+- +eval_freq=30
+- logger.wandb.group='dann-${dataset.meta_datasets.0.name}-c${dataset.meta_datasets.0.n_class}'
+- logger.wandb.name='r${i_rep}'
+- server.beta=.5
+- load_model.do=true
+- load_model.load=[server]
+- server.user_selection=random_uniform
+#
+- dataset.meta_datasets.1.name=Office31A
+- +server.group_label_mode.Office31A=supervised
+- +server.group_label_mode.Office31W=unsupervised
+- +server.group_label_mode.Office31D=unsupervised
+- load_model.hash_name=Office31A/FedAvg/OfficeCnnSplit/47095220f910831acac239dd12b241120a1a093c/g_0
+#
+- model.freeze_backbone=False
+- model.freeze_decoder=False
+- model.rev_lambda_scale=1.
+- model.disable_bn_stat=True
+- model.bottleneck_type=dropout
+- user.group_loss=bce
+- user.relabel_coef=0.
+- ${args_no_hyphens}
+method: grid
+metric:
+  goal: maximize
+  name: g_test_acc  # need to change at GUI according to dataset.meta_datasets.0.name
+parameters:
+  i_rep:
+    values:
+    - 0
+    - 1
+    - 2
+  dataset.meta_datasets.0.name:
+    values:
+    - Office31W
+    - Office31D
+  dataset.meta_datasets.0.n_class:
+    values:
+    - 15
+    - 31
+#  user.group_loss:
+#    values:
+#    - bce
+#    - sq_bce
+  server.num_users:
+    values:
+#    - 1
+    - 2
+#    - 3
+#    - 4
+  model.freeze_backbone:
+    values:
+#      - True
+      - False
+#  user.optimizer.learning_rate:
+#    values:
+#      - 0.01
+#      - 0.001
+#  user.adv_lambda:
+#    values:
+##      - 1.
+#      - 0.1
+#      - 0.01
+program: fade.mainx

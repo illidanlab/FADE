@@ -1,0 +1,12 @@
+# @package _group_
+name: OfficeHome65A
+seed: 42
+n_user: 1
+n_class: 65
+class_stride: 1
+partition_mode: uni
+min_n_sample_per_share: 2 # num sample per class
+max_n_sample_per_share: -1
+max_n_sample_per_class: 1000  # equivalent to -1 in practice
+user_data_format: dataset
+feature_type: images

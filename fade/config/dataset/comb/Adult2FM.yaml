@@ -1,0 +1,29 @@
+# @package _global_
+
+# Fairness experiment
+dataset:
+  name: "comb/Adult2FM"
+  meta_fed_ds: federalize
+  meta_datasets:
+    - name: Adult2F
+      seed: 42
+      n_user: 10
+      n_class: 2
+      class_stride: 1
+      min_n_sample_per_share: 2 # num sample per class
+      max_n_sample_per_share: -1
+      max_n_sample_per_class: 200
+#      n_sample_per_class: 200  # use all test samples
+      user_data_format: tensor
+      partition_distribution: uni
+    - name: Adult2M
+      seed: 42
+      n_user: 10
+      n_class: 2
+      class_stride: 1
+      min_n_sample_per_share: 2 # num sample per class
+      max_n_sample_per_share: -1
+      max_n_sample_per_class: 200
+#      n_sample_per_class: 200  # use all test samples
+      user_data_format: dataset
+      partition_distribution: uni

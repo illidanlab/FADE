@@ -1,0 +1,12 @@
+# @package _group_
+name: 'OfficeCnnSplit'
+backbone: resnet50
+n_task: 1  # > 0 for task/group adv training. <=0 otherwise
+rev_lambda_scale: 1.  # 0 to disable backward from task discriminator. >0 to reverse grad. <0 to normal grad. NOTE this is just a constant scale to the lambda. The real lambda will be further scheduled on run.
+n_class: 65  # This depends on dataset.
+mid_dim: 256
+freeze_backbone: True
+freeze_decoder: False
+disable_bn_stat: False  # set True in testing or fine-tuning
+CDAN_task: False
+bottleneck_type: dropout
