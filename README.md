@@ -7,6 +7,8 @@ Federated learning is a distributed learning framework that is communication eff
 
 ![FADE](assets/fade.png)
 
+## Usage
+### Setup Environment
 Clone the repository and setup the environment.
 ```shell
 git clone git@github.com:illidanlab/FADE.git
@@ -24,14 +26,12 @@ wandb sweep <sweep.yaml>
 ```
 Note, you need a wandb account which will be required at first run.
 
-## Prepare
-
-### Dataset
+### Download Datasets
 
 * **Office**: Download zip file from [here](https://drive.google.com/file/d/0B4IapRTv9pJ1WGZVd1VDMmhwdlE/view) (preprocessed by [SHOT](https://github.com/tim-learn/SHOT)) and unpack into `./data/office31`. Verify the file structure to make sure the missing image path exist.
 * **OfficeHome**: Download zip file from [here](https://drive.google.com/file/d/0B81rNlvomiwed0V1YUxQdC1uOTg/view) (preprocessed by [SHOT](https://github.com/tim-learn/SHOT)) and unpack into `./data/OfficeHome65`. Verify the file structure to make sure the missing image path exist.
 
-### Pre-trained source-domain models
+### Download Pre-trained Source-domain Models
 
 For each UDA tasks, we pre-train models on the source domain first. You can pre-train these models by yourself:
 ```shell
@@ -43,7 +43,7 @@ Instead, you may download the pre-trained source-domain models from [here](https
 
 To add soon.
 
-## Run UDA experiments
+### Run UDA experiments
 
 * Office dataset
     ```shell
