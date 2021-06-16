@@ -1,6 +1,8 @@
 Federated Adversarial Debiasing (FADE)
 ======================================
 
+Paper title: Federated Adversarial Debiasing for Fair and Transferable Representations, KDD'21
+
 **Abstract**
 
 Federated learning is a distributed learning framework that is communication efficient and provides protection over participating users' raw training data. One outstanding challenge of federate learning comes from the users' heterogeneity, and learning from such data may yield biased and unfair models for minority groups. While adversarial learning is commonly used in centralized learning for mitigating bias, there are significant barriers when extending it to the federated framework. In this work, we study these barriers and address them by proposing a novel approach Federated Adversarial DEbiasing (FADE). FADE does not require users' sensitive group information for debiasing and offers users the freedom to opt-out from the adversarial component when privacy or computational costs become a concern. We show that ideally, FADE can attain the same global optimality as the one by the centralized algorithm. We then analyze when its convergence may fail in practice and propose a simple yet effective method to address the problem. Finally, we demonstrate the effectiveness of the proposed framework through extensive empirical studies, including the problem settings of unsupervised domain adaptation and fair learning.
@@ -68,3 +70,15 @@ To add soon.
     ```
 
 ## Extend with other UDA methods
+
+------------
+
+If you find the repository useful, please cite our paper.
+```bibtex
+@inproceedings{hong2021federated,
+  title={Federated Adversarial Debiasing for Fair and Transferable Representations},
+  author={Hong, Junyuan and Zhu, Zhuangdi and Yu, Shuyang and Wang, Zhangyang and Dodge, Hiroko and Zhou, Jiayu},
+  booktitle={Proceedings of the 27th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  year={2021}
+}
+```
