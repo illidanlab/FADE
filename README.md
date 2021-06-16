@@ -39,13 +39,13 @@ For each UDA tasks, we pre-train models on the source domain first. You can pre-
 ```shell
 source sweeps/Office31_UDA/A_fedavg.sh
 ```
-Instead, you may download the pre-trained source-domain models from [here](https://www.dropbox.com/sh/phuusbtbxd7r2fa/AAAGbFpmzn4wkAMF0utVCi28a?dl=0). Place under `out/models/`.  
+Instead, you may download the pre-trained source-domain models from [here](https://www.dropbox.com/sh/0imy8vft8o3mph8/AABhNuzbW02OmwboMu84e672a?dl=0). Place under `out/models/`.  
 
 ### Pre-trained adapted models
 
 To add soon.
 
-### Run UDA experiments
+## Run UDA experiments
 
 * Office dataset
     ```shell
@@ -69,7 +69,11 @@ To add soon.
     wandb agent <agent id>
     ```
 
-## Extend with other UDA methods
+## Extend with other debias methods
+
+To extend FADE framework with other debias methods, you need to update the user and server codes. To start, please read the `GroupAdvUser` class in [fade/user/group_adv.py](fade/user/group_adv.py) and `FedAdv` in [fade/server/FedAdv.py](fade/server/FedAdv.py).
+
+Typically, you will need to update the `compute_loss` function in `GroupAdvUser` class to customize your loss computation.
 
 ------------
 
