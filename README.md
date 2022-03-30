@@ -4,7 +4,7 @@ Federated Adversarial Debiasing (FADE)
 Code for paper: "Federated Adversarial Debiasing for Fair and Transferable Representations" Junyuan Hong, Zhuangdi Zhu, Shuyang Yu, Zhangyang Wang, Hiroko Dodge, and Jiayu Zhou. *KDD'21*
 [[paper]](https://dl.acm.org/doi/10.1145/3447548.3467281) [[slides]](https://jyhong.gitlab.io/publication/fade2021kdd/slides.pdf)
 
-**TL;DR**: FADE is the first work showing that clients can optimize an group-to-group adversarial debiasing objective [1] **without its adversarial data on local device**. The technique is applicable for unsupervised domain adaptation and group-fair learning.
+**TL;DR**: FADE is the first work showing that clients can optimize an group-to-group adversarial debiasing objective [1] **without its adversarial data on local device**. The technique is applicable for unsupervised domain adaptation (UDA) and group-fair learning. In UDA, our method outperforms the SOTA UDA w/o source data (SHOT) in federated learning.
 
 ![adversarial objective w/o adversarial data](https://user-images.githubusercontent.com/6964516/160862893-fba4e6a3-298e-4cb1-b7f0-d39bdde64b68.png)
 
@@ -75,6 +75,8 @@ To add soon.
     # Run wandb agent commands from the prompt or the sweep page.
     wandb agent <agent id>
     ```
+
+![image](https://user-images.githubusercontent.com/6964516/160864437-f124fcbd-da17-422a-b9b2-189f745d9f3b.png)
 
 ## Extend with other debias methods
 
