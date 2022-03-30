@@ -4,7 +4,7 @@ Federated Adversarial Debiasing (FADE)
 Code for paper: "Federated Adversarial Debiasing for Fair and Transferable Representations" Junyuan Hong, Zhuangdi Zhu, Shuyang Yu, Zhangyang Wang, Hiroko Dodge, and Jiayu Zhou. *KDD'21*
 [[paper]](https://dl.acm.org/doi/10.1145/3447548.3467281) [[slides]](https://jyhong.gitlab.io/publication/fade2021kdd/slides.pdf)
 
-**TL;DR**: FADE is the first work showing that clients can optimize an group-to-group adversarial debiasing objective [1] without its adversarial data on local device. The technique is applicable for unsupervised domain adaptation and group-fair learning.
+**TL;DR**: FADE is the first work showing that clients can optimize an group-to-group adversarial debiasing objective [1] **without its adversarial data on local device**. The technique is applicable for unsupervised domain adaptation and group-fair learning.
 
 **Abstract**
 
