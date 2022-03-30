@@ -6,13 +6,15 @@ Code for paper: "Federated Adversarial Debiasing for Fair and Transferable Repre
 
 **TL;DR**: FADE is the first work showing that clients can optimize an group-to-group adversarial debiasing objective [1] **without its adversarial data on local device**. The technique is applicable for unsupervised domain adaptation and group-fair learning.
 
+![adversarial objective w/o adversarial data](https://user-images.githubusercontent.com/6964516/160862893-fba4e6a3-298e-4cb1-b7f0-d39bdde64b68.png)
+
+[1] Ganin, Y., & Lempitsky, V. (2015). Unsupervised domain adaptation by backpropagation. *ICML*.
+
 **Abstract**
 
 Federated learning is a distributed learning framework that is communication efficient and provides protection over participating users' raw training data. One outstanding challenge of federate learning comes from the users' heterogeneity, and learning from such data may yield biased and unfair models for minority groups. While adversarial learning is commonly used in centralized learning for mitigating bias, there are significant barriers when extending it to the federated framework. In this work, we study these barriers and address them by proposing a novel approach Federated Adversarial DEbiasing (FADE). FADE does not require users' sensitive group information for debiasing and offers users the freedom to opt-out from the adversarial component when privacy or computational costs become a concern. We show that ideally, FADE can attain the same global optimality as the one by the centralized algorithm. We then analyze when its convergence may fail in practice and propose a simple yet effective method to address the problem. Finally, we demonstrate the effectiveness of the proposed framework through extensive empirical studies, including the problem settings of unsupervised domain adaptation and fair learning.
 
 ![FADE](assets/fade.png)
-
-[1] Ganin, Y., & Lempitsky, V. (2015). Unsupervised domain adaptation by backpropagation. *ICML*.
 
 ## Usage
 ### Setup Environment
